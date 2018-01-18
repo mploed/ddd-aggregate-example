@@ -28,15 +28,25 @@ public class AgencyResultAggregate {
 	}
 
 	public static class AgencyResultBuilder {
-		private final int points;
+		private int points;
 		private final Set<KoCriteria> koCriteria;
 		private final Set<WarningMessage> warningMessages;
 		private PersonId personId;
 
-		public AgencyResultBuilder(int points) {
-			this.points = points;
+		public AgencyResultBuilder() {
 			this.koCriteria = new HashSet<KoCriteria>();
 			this.warningMessages = new HashSet<WarningMessage>();
+		}
+
+		public AgencyResultBuilder withPoints(int points) {
+			if(this.points > 0) {
+				throw new IllegalArgumentException("You have already set points");
+			}
+			if(points <= 0 || points > 100) {
+				throw new IllegalArgumentException("The points you set must be > 0 and <= 100 (any number between 1 and 100)");
+			}
+			this.points = points;
+			return this;
 		}
 
 		public AgencyResultBuilder withWarning(String key, String message) {
@@ -50,6 +60,9 @@ public class AgencyResultAggregate {
 		}
 
 		public AgencyResultBuilder forPerson(String firstName, String lastName, String street, String postCode, String city) {
+			if(this.personId != null) {
+				throw new IllegalArgumentException("You have already set a person");
+			}
 			this.personId = new PersonId.PersonIdBuilder(firstName, lastName)
 					.city(city)
 					.street(street)
@@ -59,6 +72,12 @@ public class AgencyResultAggregate {
 		}
 
 		public AgencyResultAggregate build() {
+			if(this.points <= 0) {
+				throw new IllegalStateException("Please set points > 0 with the withPoints mehtod");
+			}
+			if(this.personId == null) {
+				throw new IllegalStateException("Please set a person with the forPerson method");
+			}
 			return new AgencyResultAggregate(this);
 		}
 
