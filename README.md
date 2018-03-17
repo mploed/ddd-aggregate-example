@@ -12,4 +12,4 @@ I consider the scoring example to be more complete than the battery one.
 
 ## Ideas
 I think that aggregates are a good way and a suitable place to implement information hiding on a rather low level module level. 
-Please note how I operate with visibility operators on a class, attribute and method level.
+Please note how I operate with visibility operators on a class, attribute and method level. All I have publicly visible here are the Aggregate classes themselves but not the (Root)entities or Value Objects.
