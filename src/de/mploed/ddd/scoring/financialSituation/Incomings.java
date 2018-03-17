@@ -1,7 +1,7 @@
 package de.mploed.ddd.scoring.financialSituation;
 
 class Incomings {
-	private int salary;
+	int salary;
 	private int otherIncome;
 
 	Incomings(int salary, int otherIncome) {

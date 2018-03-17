@@ -28,25 +28,25 @@ class AgencyResultRootEntity {
 	}
 
 	boolean isAcceptable() {
-		if(koCriteria.size() > 0) {
+		if (koCriteria.size() > 0) {
 			return false;
-		} else if(warningMessages.size() > 5) {
+		} else if (warningMessages.size() > 5) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-		int calculateScoringPoints() {
+	int calculateScoringPoints() {
 		int result = 0;
-		if(warningMessages.size() == 0) {
+		if (warningMessages.size() == 0) {
 			result += 5;
 		}
-		if(points > 90) {
+		if (points > 90) {
 			result += 15;
-		} else if(points > 85) {
+		} else if (points > 85) {
 			result += 10;
-		} else if(points > 80) {
+		} else if (points > 80) {
 			result += 5;
 		}
 		return result;

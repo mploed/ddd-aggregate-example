@@ -13,20 +13,34 @@ import de.mploed.ddd.scoring.financialSituation.FinancialSituationAggregate;
  */
 public class ScoringApplicationService {
 	public ScoringResultAggregate performScoring(ApplicationNumber applicationNumber) {
-		// Load an AgencyResultAggregate
+		// Load an AgencyRe.sultAggregate
 		AgencyResultAggregate agencyResultAggregate = loadAgencyResult();
+
+		// Load an ApplicantAggregate
+		ApplicantAggregate applicantAggregate = loadApplicant(applicationNumber);
+
+
+		// Load a FinancialSituationAggregate
+		FinancialSituationAggregate financialSituationAggregate = loadFinancialSituation(applicationNumber);
+
+
+		return performScoringOnAggregates(applicationNumber, agencyResultAggregate, applicantAggregate, financialSituationAggregate);
+	}
+
+	ScoringResultAggregate performScoringOnAggregates(ApplicationNumber applicationNumber, AgencyResultAggregate agencyResultAggregate, ApplicantAggregate applicantAggregate, FinancialSituationAggregate financialSituationAggregate) {
+		// Perform Scoring on Financial Situation Aggregate
+		int financialSituationPoints = financialSituationAggregate.calculateScoringPoints();
+
+
+		// Perform Scoring on ApplicantAggregate
+		int applicantPoints = applicantAggregate.calculateScoringPoints();
+
 		//Perform Scoring on the AgencyResultAggregate
 		int agencyPoints = agencyResultAggregate.calculateScoringPoints();
 		boolean noGoPresent = agencyResultAggregate.isAcceptable();
 
-		// Load an ApplicantAggregate
-		ApplicantAggregate applicantAggregate = loadApplicant(applicationNumber);
-		// Perform Scoring on ApplicantAggregate
-		int applicantPoints = applicantAggregate.calculateScoringPoints();
 
-		// Load a FinancialSituationAggregate
-		FinancialSituationAggregate financialSituationAggregate = loadFinancialSituation(applicationNumber);
-		int financialSituationPoints = financialSituationAggregate.calculateScoringPoints();
+
 
 		ScoringResultAggregate scoringResultAggregate = new ScoringResultAggregate.Builder(applicationNumber)
 				.agencyScoring(agencyPoints)
@@ -34,6 +48,7 @@ public class ScoringApplicationService {
 				.financialSituationScoring(financialSituationPoints)
 				.noGoCriteria(noGoPresent)
 				.build();
+
 
 
 		return scoringResultAggregate;

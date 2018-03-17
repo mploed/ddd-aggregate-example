@@ -2,8 +2,9 @@
 This project tries to demo ways for implementing Aggregates that are compliant with Domain-Driven Design's ideas.
 
 There are currently two examples:
-- A battery of an electric vehicle
 - A scoring engine for loans
+- A battery of an electric vehicle
+
 
 ## Current status
 Please consider this a first code drop that contains most of my views and ideas but this code drop is not yet documented or finalized. 
