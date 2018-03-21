@@ -13,3 +13,6 @@ I consider the scoring example to be more complete than the battery one.
 ## Ideas
 I think that aggregates are a good way and a suitable place to implement information hiding on a rather low level module level. 
 Please note how I operate with visibility operators on a class, attribute and method level. All I have publicly visible here are the Aggregate classes themselves but not the (Root)entities or Value Objects.
+
+## Scoring Engine
+The scoring engine example demos a few aggregates (applicant, agency,...) but also show how different aggregates can be combined or orchestrated with application services
